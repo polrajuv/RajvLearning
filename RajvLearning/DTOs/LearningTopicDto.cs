@@ -11,5 +11,6 @@
         public string DifficultyLevel { get; set; } = string.Empty;
 
         public bool IsPublished { get; set; }
+
     }
 }

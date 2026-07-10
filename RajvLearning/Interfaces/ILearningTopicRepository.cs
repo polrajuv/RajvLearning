@@ -1,4 +1,5 @@
-﻿using RajvLearning.API.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using RajvLearning.API.Entities;
 
 namespace RajvLearning.API.Interfaces
 {
@@ -16,6 +17,8 @@ namespace RajvLearning.API.Interfaces
 
         Task<bool> ExistsAsync(int id);
 
-        Task SaveChangesAsync();
+       Task SaveChangesAsync();
+
+      
     }
 }

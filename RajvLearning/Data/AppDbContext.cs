@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RajvLearning.API.Entities;
 
-namespace RajvLearning.API.Data
+namespace RajvLearning.API.Data;
+
+public class AppDbContext(DbContextOptions<AppDbContext> options)
+    : DbContext(options)
 {
-    using RajvLearning.API.Models;
-    public class AppDbContext : DbContext
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
-        {
-        }
+    public DbSet<LearningTopic> LearningTopic { get; set; }
 
-        public DbSet<LearningTopic> LearningTopic { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<LearningTopic>()
+            .ToTable("LearningTopic");
     }
 }
