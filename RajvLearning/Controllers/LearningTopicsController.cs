@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Configuration;
 using RajvLearning.API.DTOs;
 using RajvLearning.API.Entities;
 using RajvLearning.API.Interfaces;
@@ -10,20 +11,34 @@ namespace RajvLearning.API.Controllers;
 public class LearningTopicsController : ControllerBase
 {
     private readonly ILearningTopicRepository _repository;
+    private readonly ILogger<LearningTopicsController> _logger;
 
-    public LearningTopicsController(ILearningTopicRepository repository)
+    public LearningTopicsController(ILearningTopicRepository repository, ILogger<LearningTopicsController> logger)
     {
         _repository = repository;
+            _logger = logger;
+            ;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-       var topics = await _repository.GetAllAsync();
-        string test = null;
-       var length = test.Length;
+        try
+        {
+           _logger.LogInformation("Fetching all learning topics.");
 
-        return Ok(topics);
+            var topics = await _repository.GetAllAsync();
+            string test = null;
+           var length = test.Length;
+
+            return Ok(topics);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("unable to Fetch all learning topics.");
+
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost]
