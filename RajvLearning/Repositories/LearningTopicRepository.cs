@@ -8,11 +8,7 @@ namespace RajvLearning.API.Repositories
     //public class LearningTopicRepository
     public class LearningTopicRepository(AppDbContext context) : ILearningTopicRepository
     {
-        //public Task AddAsync(LearningTopic topic)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
+       
         public async Task AddAsync(LearningTopic topic)
         {
             await context.LearningTopic.AddAsync(topic);

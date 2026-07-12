@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RajvLearning.API.Data;
 using RajvLearning.API.Interfaces;
+using RajvLearning.API.Middleware;
 using RajvLearning.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,10 @@ builder.Services.AddSwaggerGen();
 
 // 2. Build the app
 var app = builder.Build();
+
+// Global Exception Middleware
+app.UseMiddleware<ExceptionMiddleware>();
+
 
 // 3. Configure middleware
 if (app.Environment.IsDevelopment())

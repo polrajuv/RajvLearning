@@ -16,34 +16,34 @@ namespace RajvLearning.API.Controllers
         }
         //Created for Database connectivity testing purpose.
 
-        [HttpGet("db")]
-        public async Task<IActionResult> CheckDatabase()
-        {
-            try
-            {
-                var canConnect = await _context.Database.CanConnectAsync();
+        //[HttpGet("db")]
+        //public async Task<IActionResult> CheckDatabase()
+        //{
+        //    try
+        //    {
+        //        var canConnect = await _context.Database.CanConnectAsync();
 
-                if (canConnect)
-                    return Ok(new
-                    {
-                        Success = true,
-                        Message = "SQL Server connection successful."
-                    });
+        //        if (canConnect)
+        //            return Ok(new
+        //            {
+        //                Success = true,
+        //                Message = "SQL Server connection successful."
+        //            });
 
-                return BadRequest(new
-                {
-                    Success = false,
-                    Message = "Unable to connect to SQL Server."
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new
-                {
-                    Success = false,
-                    Message = ex.Message
-                });
-            }
-        }
+        //        return BadRequest(new
+        //        {
+        //            Success = false,
+        //            Message = "Unable to connect to SQL Server."
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            Success = false,
+        //            Message = ex.Message
+        //        });
+        //    }
+        //}
     }
 }

@@ -19,14 +19,16 @@ public class LearningTopicsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var topics = await _repository.GetAllAsync();
+       var topics = await _repository.GetAllAsync();
+        string test = null;
+       var length = test.Length;
 
         return Ok(topics);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateLearningTopicDto dto)
-    {
+    { ////throw new Exception("Testing Global Exception Middleware");
         var topic = new LearningTopic
         {
             Title = dto.Title,
