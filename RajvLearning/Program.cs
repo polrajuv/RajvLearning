@@ -25,6 +25,9 @@ builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 // JWT Authentication 
 builder.Services
