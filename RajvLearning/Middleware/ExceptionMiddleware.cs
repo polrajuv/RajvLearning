@@ -20,22 +20,25 @@ namespace RajvLearning.API.Middleware
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unhandled exception occurred.");
+                var controller = context.GetRouteValue("controller");
+                var action = context.GetRouteValue("action");
 
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _logger.LogError(
+                    ex,
+                    "Unhandled exception in Controller: {Controller}, Action: {Action}",
+                    controller,
+                    action);
+
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 context.Response.ContentType = "application/json";
 
                 var response = new
                 {
-                    StatusCode = context.Response.StatusCode,
-                    Message = "An unexpected error occurred. Please try again later."
-                    // For learning only, you can also include:
-                    // Details = ex.Message
+                    StatusCode = 500,
+                    Message = "An unexpected error occurred. Please try again later...."
                 };
 
-                var json = JsonSerializer.Serialize(response);
-
-                await context.Response.WriteAsync(json);
+                await context.Response.WriteAsJsonAsync(response);
             }
         }
     }

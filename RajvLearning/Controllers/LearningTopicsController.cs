@@ -23,22 +23,30 @@ public class LearningTopicsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        try
-        {
-           _logger.LogInformation("Fetching all learning topics.");
+        _logger.LogInformation("GetAll LearningTopics method is calling....");
+        var topics = await _repository.GetAllAsync();
+        //Error block added for testing purpose.
+        //string test = null;
+        //var length = test.Length;
 
-            var topics = await _repository.GetAllAsync();
-            string test = null;
-           var length = test.Length;
+        return Ok(topics);
 
-            return Ok(topics);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("unable to Fetch all learning topics.");
+        //try
+        //{
+        //   _logger.LogInformation("Fetching all learning topics.");
 
-            return BadRequest(ex.Message);
-        }
+        //    var topics = await _repository.GetAllAsync();
+        //    string test = null;
+        //   var length = test.Length;
+
+        //    return Ok(topics);
+        //}
+        //catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, "unable to Fetch all learning topics.");
+        //    throw;
+        //    //return BadRequest(ex.Message);
+        //}
     }
 
     [HttpPost]
@@ -70,6 +78,10 @@ public class LearningTopicsController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var topic = await _repository.GetByIdAsync(id);
+
+        //Error block added for testing purpose.
+        string test = null;
+        var length = test.Length;
 
         if (topic == null)
         {

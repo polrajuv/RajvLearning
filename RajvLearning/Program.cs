@@ -3,15 +3,27 @@ using RajvLearning.API.Data;
 using RajvLearning.API.Interfaces;
 using RajvLearning.API.Middleware;
 using RajvLearning.API.Repositories;
+using Serilog;
+
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    //.MinimumLevel.Error() 
+    .MinimumLevel.Information()
+    .WriteTo.File(
+        "Logs/rajvlearning-.txt",
+        rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 // 1. Register services
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+        builder.Configuration.GetConnectionString("DefaultConnection999")));
 
 builder.Services.AddScoped<ILearningTopicRepository, LearningTopicRepository>();
 
