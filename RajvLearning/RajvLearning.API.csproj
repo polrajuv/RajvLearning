@@ -24,8 +24,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="10.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
