@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Configuration;
 using RajvLearning.API.DTOs;
 using RajvLearning.API.Entities;
 using RajvLearning.API.Interfaces;
 
 namespace RajvLearning.API.Controllers;
+
 
 [Route("api/[controller]")]
 [ApiController]
@@ -25,33 +27,14 @@ public class LearningTopicsController : ControllerBase
     {
         _logger.LogInformation("GetAll LearningTopics method is calling....");
         var topics = await _repository.GetAllAsync();
-        //Error block added for testing purpose.
-        //string test = null;
-        //var length = test.Length;
-
+       
         return Ok(topics);
-
-        //try
-        //{
-        //   _logger.LogInformation("Fetching all learning topics.");
-
-        //    var topics = await _repository.GetAllAsync();
-        //    string test = null;
-        //   var length = test.Length;
-
-        //    return Ok(topics);
-        //}
-        //catch (Exception ex)
-        //{
-        //    _logger.LogError(ex, "unable to Fetch all learning topics.");
-        //    throw;
-        //    //return BadRequest(ex.Message);
-        //}
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Create(CreateLearningTopicDto dto)
-    { ////throw new Exception("Testing Global Exception Middleware");
+    {
         var topic = new LearningTopic
         {
             Title = dto.Title,
@@ -64,9 +47,7 @@ public class LearningTopicsController : ControllerBase
         };
 
         await _repository.AddAsync(topic);
-        await _repository.SaveChangesAsync();
-
-       
+        await _repository.SaveChangesAsync();  
 
         return CreatedAtAction(
             nameof(GetById),
@@ -74,14 +55,14 @@ public class LearningTopicsController : ControllerBase
             topic);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         var topic = await _repository.GetByIdAsync(id);
-
         //Error block added for testing purpose.
-        string test = null;
-        var length = test.Length;
+        //string test = null;
+        //var length = test.Length;
 
         if (topic == null)
         {
@@ -91,6 +72,7 @@ public class LearningTopicsController : ControllerBase
         return Ok(topic);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, UpdateLearningTopicDto dto)
     {
@@ -114,6 +96,7 @@ public class LearningTopicsController : ControllerBase
         return Ok(topic);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

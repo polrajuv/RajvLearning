@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RajvLearning.API.Data;
 using RajvLearning.API.Interfaces;
 using RajvLearning.API.Middleware;
 using RajvLearning.API.Repositories;
 using RajvLearning.API.Services;
 using Serilog;
+using System.Text;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -22,10 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 
-// ================================
-// 1. Register Services
-// ================================
-
+// Controllers
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -33,10 +33,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-// ================================
-// CORS Configuration
-// ================================
-
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactPolicy",
@@ -49,29 +46,56 @@ builder.Services.AddCors(options =>
 });
 
 
-
-// ================================
+// ===========================
 // JWT Authentication
-// ================================
+// ===========================
 
 builder.Services
-    .AddAuthentication("Bearer")
+    .AddAuthentication(
+        JwtBearerDefaults.AuthenticationScheme)
+
     .AddJwtBearer(options =>
     {
         options.RequireHttpsMetadata = false;
+
         options.SaveToken = true;
 
-        // JWT validation will be configured here
-        // after appsettings.json JWT setup
+
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+
+                ValidateIssuer = true,
+
+                ValidateAudience = true,
+
+                ValidateLifetime = true,
+
+                ValidateIssuerSigningKey = true,
+
+
+                ValidIssuer =
+                    builder.Configuration["Jwt:Issuer"],
+
+
+                ValidAudience =
+                    builder.Configuration["Jwt:Audience"],
+
+
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(
+                        builder.Configuration["Jwt:Key"]!)
+                    )
+            };
     });
+
 
 
 builder.Services.AddAuthorization();
 
 
-// ================================
 // Database
-// ================================
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -79,40 +103,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         .GetConnectionString("DefaultConnection")));
 
 
-// ================================
 // Dependency Injection
-// ================================
 
-// Repository
 builder.Services.AddScoped
-    <ILearningTopicRepository, LearningTopicRepository>();
+<ILearningTopicRepository, LearningTopicRepository>();
 
 
-// JWT Token Service
 builder.Services.AddScoped
-    <ITokenService, TokenService>();
+<ITokenService, TokenService>();
 
-
-
-// ================================
-// 2. Build Application
-// ================================
 
 var app = builder.Build();
 
 
 
-// ================================
-// Global Exception Middleware
-// ================================
+// Exception Middleware
 
 app.UseMiddleware<ExceptionMiddleware>();
 
 
 
-// ================================
 // Swagger
-// ================================
 
 if (app.Environment.IsDevelopment())
 {
@@ -123,29 +134,23 @@ if (app.Environment.IsDevelopment())
 
 
 
-// ================================
-// 3. Configure Middleware
-// ================================
-
 app.UseHttpsRedirection();
 
 
-// CORS must be before Authentication
+// CORS
+
 app.UseCors("ReactPolicy");
 
 
-// JWT Authentication
+// JWT
+
 app.UseAuthentication();
 
-
-// Authorization
 app.UseAuthorization();
 
 
 
-// Map Controllers
 app.MapControllers();
-
 
 
 app.Run();
