@@ -55,7 +55,7 @@ public class LearningTopicsController : ControllerBase
             topic);
     }
 
-    [Authorize]
+  //  [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -72,7 +72,7 @@ public class LearningTopicsController : ControllerBase
         return Ok(topic);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, UpdateLearningTopicDto dto)
     {
@@ -96,7 +96,7 @@ public class LearningTopicsController : ControllerBase
         return Ok(topic);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

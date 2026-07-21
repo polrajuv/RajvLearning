@@ -1,28 +1,61 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RajvLearning.API.Entities;
-
-public class LearningTopic
+namespace RajvLearning.API.Models
 {
-    [Key]
-    public int Id { get; set; }
+    public class LearningTopic
+    {
+        public int Id { get; set; }
 
-    [Required]
-    [MaxLength(200)]
-    public string Title { get; set; } = string.Empty;
 
-    [MaxLength(500)]
-    public string Description { get; set; } = string.Empty;
+        [Required]
+        [StringLength(200)]
+        public string Title { get; set; } = string.Empty;
 
-    public string Content { get; set; } = string.Empty;
 
-    [MaxLength(100)]
-    public string Category { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? Category { get; set; }
 
-    [MaxLength(50)]
-    public string Difficulty { get; set; } = "Beginner";
 
-    public bool IsPublished { get; set; } = true;
+        // Short definition of the topic
+        public string? Definition { get; set; }
 
-    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
+        // Brief overview
+        public string? Summary { get; set; }
+
+
+        // Main learning content (TinyMCE HTML)
+        public string? Content { get; set; }
+
+
+        // Code samples, SQL, JSON, PowerShell, etc.
+        public string? ExampleContent { get; set; }
+
+
+        // Best practices, tips, interview notes
+        public string? Notes { get; set; }
+
+
+        // Documentation links, GitHub, articles
+        public string? References { get; set; }
+
+
+        // Search keywords
+        [StringLength(500)]
+        public string? Tags { get; set; }
+
+
+        // Beginner / Intermediate / Advanced
+        [StringLength(50)]
+        public string? Difficulty { get; set; }
+
+
+        public bool IsPublished { get; set; }
+
+
+        public DateTime CreatedDate { get; set; }
+
+
+        public DateTime? UpdatedDate { get; set; }
+    }
 }
