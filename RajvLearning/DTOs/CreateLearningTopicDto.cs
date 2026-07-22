@@ -12,7 +12,7 @@ namespace RajvLearning.API.DTOs
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(500, MinimumLength = 10,
             ErrorMessage = "Description must be between 10 and 500 characters.")]
-        public string Description { get; set; } = string.Empty;
+        public string Definition { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Content is required.")]
         [MinLength(20, ErrorMessage = "Content must contain at least 20 characters.")]
@@ -29,5 +29,11 @@ namespace RajvLearning.API.DTOs
         public string Difficulty { get; set; } = "Beginner";
 
         public bool IsPublished { get; set; } = true;
+        public string Notes {  get; set; } = string.Empty;
+        public string References { get; set; } = string.Empty;
+        public string ExampleContent {  get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public string Summary { get; set; } = string.Empty;
+
     }
 }
