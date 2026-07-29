@@ -136,8 +136,7 @@ namespace RajvLearning.API.Controllers
             {
                 Token = token,
                 Expiration =
-                    DateTime.UtcNow.AddMinutes(
-                        60)
+                    DateTime.UtcNow.AddMinutes(60)
             });
         }
 

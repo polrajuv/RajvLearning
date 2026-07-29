@@ -72,7 +72,7 @@ public class LearningTopicsController : ControllerBase
 
             Tags = dto.Tags,
 
-            Difficulty = dto.Difficulty,
+           // Difficulty = dto.Difficulty,
 
             IsPublished = dto.IsPublished,
 
@@ -91,10 +91,6 @@ public class LearningTopicsController : ControllerBase
             new { id = topic.Id },
             topic);
     }
-
-
-
-
 
     // GET: api/LearningTopics/{id}
     // Public access
@@ -160,7 +156,7 @@ public class LearningTopicsController : ControllerBase
 
         topic.Tags = dto.Tags;
 
-        topic.Difficulty = dto.Difficulty;
+       // topic.Difficulty = dto.Difficulty;
 
         topic.IsPublished = dto.IsPublished;
 

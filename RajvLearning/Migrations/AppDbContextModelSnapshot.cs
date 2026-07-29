@@ -43,9 +43,9 @@ namespace RajvLearning.API.Migrations
                     b.Property<string>("Definition")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Difficulty")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    //b.Property<string>("Difficulty")
+                    //    .HasMaxLength(50)
+                    //    .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ExampleContent")
                         .HasColumnType("nvarchar(max)");

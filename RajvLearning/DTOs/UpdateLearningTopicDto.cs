@@ -37,7 +37,7 @@
 
 
         // Beginner / Intermediate / Advanced
-        public string Difficulty { get; set; } = "Beginner";
+       // public string Difficulty { get; set; } = "Beginner";
 
 
         public bool IsPublished { get; set; }

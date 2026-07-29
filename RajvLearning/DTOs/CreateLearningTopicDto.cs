@@ -23,10 +23,10 @@ namespace RajvLearning.API.DTOs
             ErrorMessage = "Category cannot exceed 100 characters.")]
         public string Category { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Difficulty is required.")]
-        [RegularExpression("^(Beginner|Intermediate|Advanced)$",
-            ErrorMessage = "Difficulty must be Beginner, Intermediate or Advanced.")]
-        public string Difficulty { get; set; } = "Beginner";
+        //[Required(ErrorMessage = "Difficulty is required.")]
+        //[RegularExpression("^(Beginner|Intermediate|Advanced)$",
+        //    ErrorMessage = "Difficulty must be Beginner, Intermediate or Advanced.")]
+        //public string Difficulty { get; set; } = "Beginner";
 
         public bool IsPublished { get; set; } = true;
         public string Notes {  get; set; } = string.Empty;

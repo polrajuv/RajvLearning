@@ -39,7 +39,7 @@
         public string Tags { get; set; } = string.Empty;
 
 
-        public string DifficultyLevel { get; set; } = string.Empty;
+      //  public string DifficultyLevel { get; set; } = string.Empty;
 
 
         public bool IsPublished { get; set; }

@@ -44,14 +44,7 @@ public class LearningTopic
     [StringLength(500)]
     public string? Tags { get; set; }
 
-
-    // Beginner / Intermediate / Advanced
-    [StringLength(50)]
-    public string? Difficulty { get; set; }
-
-
     public bool IsPublished { get; set; }
-
 
     public DateTime CreatedDate { get; set; }
 
