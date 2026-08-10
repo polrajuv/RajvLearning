@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using RajvLearning.API.DTOs;
 using RajvLearning.API.Entities;
 using RajvLearning.API.Interfaces;
@@ -24,7 +25,13 @@ public class LearningTopicsController : ControllerBase
         _logger = logger;
     }
 
-
+    //Better approach
+    [HttpGet("Welcome")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    public ActionResult<string> Welcome()
+    {
+        return Ok("Welcome to Learning Topics! portal");
+    }
 
     // GET: api/LearningTopics
     // Public access
@@ -34,13 +41,10 @@ public class LearningTopicsController : ControllerBase
         _logger.LogInformation(
             "GetAll LearningTopics method is calling....");
 
-
         var topics = await _repository.GetAllAsync();
-
 
         return Ok(topics);
     }
-
 
 
 
@@ -156,7 +160,6 @@ public class LearningTopicsController : ControllerBase
 
         topic.Tags = dto.Tags;
 
-       // topic.Difficulty = dto.Difficulty;
 
         topic.IsPublished = dto.IsPublished;
 
