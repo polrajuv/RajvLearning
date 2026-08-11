@@ -35,7 +35,7 @@ public class LearningTopicsController : ControllerBase
 
     // GET: api/LearningTopics
     // Public access
-    [HttpGet]
+    [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
         _logger.LogInformation(
