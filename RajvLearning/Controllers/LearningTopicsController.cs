@@ -30,7 +30,7 @@ public class LearningTopicsController : ControllerBase
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public ActionResult<string> Welcome()
     {
-        return Ok("Welcome to Learning Topics! portal");
+        return Ok("Welcome to Learning Topics! portal...");
     }
 
     // GET: api/LearningTopics

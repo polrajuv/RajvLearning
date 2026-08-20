@@ -125,12 +125,12 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 // Swagger
 
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
 
-//    app.UseSwaggerUI();
-//}
+    app.UseSwaggerUI();
+}
 
 
 
