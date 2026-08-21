@@ -45,7 +45,8 @@ namespace RajvLearning.API.Repositories
         public async Task<IEnumerable<LearningTopic>> GetAllAsync()
         {
             return await context.LearningTopic
-                .OrderBy(x => x.Title)
+                .OrderBy(x => x.Category)
+                .ThenBy(x => x.Title)
                 .ToListAsync();
         }
 

@@ -12,7 +12,9 @@
 
         public string Category { get; set; } = string.Empty;
 
-        public string Difficulty { get; set; } = "Beginner";
+      /// <summary>
+      /// / public string Difficulty { get; set; } = "Beginner";
+      /// </summary>
 
         public bool IsPublished { get; set; } = true;
 

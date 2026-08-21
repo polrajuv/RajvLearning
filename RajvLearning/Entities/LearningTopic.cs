@@ -4,25 +4,50 @@ namespace RajvLearning.API.Entities;
 
 public class LearningTopic
 {
-    [Key]
     public int Id { get; set; }
 
+
     [Required]
-    [MaxLength(200)]
+    [StringLength(200)]
     public string Title { get; set; } = string.Empty;
 
-    [MaxLength(500)]
-    public string Description { get; set; } = string.Empty;
 
-    public string Content { get; set; } = string.Empty;
+    [StringLength(100)]
+    public string? Category { get; set; }
 
-    [MaxLength(100)]
-    public string Category { get; set; } = string.Empty;
 
-    [MaxLength(50)]
-    public string Difficulty { get; set; } = "Beginner";
+    // Short definition of the topic
+    public string? Definition { get; set; }
 
-    public bool IsPublished { get; set; } = true;
 
-    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+    // Brief overview
+    public string? Summary { get; set; }
+
+
+    // Main learning content (TinyMCE HTML)
+    public string? Content { get; set; }
+
+
+    // Code samples, SQL, JSON, PowerShell, etc.
+    public string? ExampleContent { get; set; }
+
+
+    // Best practices, tips, interview notes
+    public string? Notes { get; set; }
+
+
+    // Documentation links, GitHub, articles
+    public string? References { get; set; }
+
+
+    // Search keywords
+    [StringLength(500)]
+    public string? Tags { get; set; }
+
+    public bool IsPublished { get; set; }
+
+    public DateTime CreatedDate { get; set; }
+
+
+    public DateTime? UpdatedDate { get; set; }
 }
