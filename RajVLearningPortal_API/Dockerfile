@@ -1,37 +1,38 @@
-# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+﻿# =========================
+# Build stage
+# =========================
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 
 WORKDIR /src
 
 # Copy project file
-COPY ["RajVLearning.API.csproj", "./"]
+COPY ["RajVLearningPortal_API.csproj", "./"]
 
 # Restore NuGet packages
-RUN dotnet restore "RajVLearning.API.csproj"
+RUN dotnet restore "RajVLearningPortal_API.csproj"
 
 # Copy the remaining source code
 COPY . .
 
-# Build and publish
-RUN dotnet publish "RajVLearning.API.csproj" \
+# Build and publish the application
+RUN dotnet publish "RajVLearningPortal_API.csproj" \
     -c Release \
     -o /app/publish \
-    --no-restore
+    /p:UseAppHost=false
 
 
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# =========================
+# Runtime stage
+# =========================
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 WORKDIR /app
+
+# Application listens on port 8080 inside the container
+EXPOSE 8080
 
 # Copy published application
 COPY --from=build /app/publish .
 
-# Application listens on HTTP port 8080 inside the container
-ENV ASPNETCORE_HTTP_PORTS=8080
-
-# Document the container port
-EXPOSE 8080
-
-# Start the API
-ENTRYPOINT ["dotnet", "RajVLearning.API.dll"]
+# Start the Web API
+ENTRYPOINT ["dotnet", "RajVLearningPortal_API.dll"]
